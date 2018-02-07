@@ -1,0 +1,45 @@
+*** 01/29/2018
+1. initiated the project
+2. added touch interaction to the bunnies
+3. bunnies have rigid body 2D, with colliders; the background has 4 box collider 2Ds that work as boundaries
+4. prevent bunnies from "colliding" to each other (i.e., let them overlap each other):
+	Solution 1:
+	OnCollisionEnter2D function:
+	Physics2D.IgnoreCollision(colliderToIgnore, this.GetComponent<Collider2D>());
+	
+	Solution 2:
+	all the bunnies have the "foreground" sorted layer. Make a new layer for the object (top of the ispector, where it says Tag:, Layer:)
+	Then go to Edit --> Project Settings --> Physics2D and then uncheck the selection for ForeGround, so that objects in this layer
+	don't collide with each other. 
+	
+5. Now, fixed the touch events: added an event system, and a touchEvents script, to control when a touch is began, moved, and ended.
+
+
+*** 01/30/2018
+1. today, I am working on the physics of the seesaw.
+first, add a rigid body to the seesaw; then adding 4 children for 4 collider boxes for the 4 seats on both sides
+ 
+ 
+*** 02/04/2018
+working on the physics of seesaw:
+1. create a one-way collision between bunnies and the seesaw:
+	seat object --> Box collider 2D --> used by effector
+	add a platform effector 2D --> arc 180
+	(this way, bunnies only collide with the seats from top)
+	one problem with this is: I cannot use trigger, both don't work together
+	
+2. To disable forces on collision:
+make the mass of bunnies very small relative to the mass of seesaw!!
+Like 0.0001 for bunnies to 1000 for seesaw
+
+3. now to detect if a bunny is on a seat, and then move the seesaw accordingly
+first, define a public variable for class bunny: isBunnyOnSeat
+then check it on touch end event
+
+4. stick bunny to the seat:
+wow, much more difficult than what I thought
+
+use Hinge Joint 2D on bunnies, with seesaw as the connected rigid body
+but disable it first, then enable it in the code.
+
+	
