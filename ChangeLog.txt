@@ -42,4 +42,14 @@ wow, much more difficult than what I thought
 use Hinge Joint 2D on bunnies, with seesaw as the connected rigid body
 but disable it first, then enable it in the code.
 
-	
+*** 02/06/2018
+Things to fix:
+1. balance status
+2. it matters where on bunny is touched, for example if dragging the bunny by its ears, it should not consider it as a weight.
+
+Interesting: for some reason, decreasing the surface arc of the platform effector, makes the balance status working!
+--> study this more later!
+
+
+*** 02/08/2018
+working on creating a customized texture data (texture2d)

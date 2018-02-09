@@ -7,9 +7,7 @@ public static class GlobalVariables
     //public static GameObject collidedSeat = null;
     public static int rightWeight = 0;
     public static int leftWeight = 0;
-    public static string seesawStatus = "balanced";
-    
-    
+    public static string seesawStatus = "balanced";      
 }
 
 public class SeesawSeat : MonoBehaviour {

@@ -1,8 +1,7 @@
-WindowsStandalone
+Android
 SceneListBegin?
 Assets/Scenes/main.unity
 SceneListEnd?
-41e9f79146e6776b2f1e11789e3bfbba Assembly-CSharp.dll:.HapticSquare
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 970a95104359198fe1a98ef48655de8c UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -143,3 +142,5 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 6c79c19715dc307be3dc9a9885bce6e9 Assembly-CSharp.dll:.BunnyPlayer
+41e9f79146e6776b2f1e11789e3bfbba Assembly-CSharp.dll:.HapticSetting
+41e9f79146e6776b2f1e11789e3bfbba Assembly-CSharp.dll:.Temp
