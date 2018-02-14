@@ -53,3 +53,17 @@ Interesting: for some reason, decreasing the surface arc of the platform effecto
 
 *** 02/08/2018
 working on creating a customized texture data (texture2d)
+
+*** 02/12/2018
+
+1. Change the bunny to a better shape (ears too big!)
+
+2. Add the second seats
+
+3. Make the interaction between bunnies and the seesaw smoother:
+
+first, moving the beam to balance position smoother --> not using the angle limits, but changing the "Maximum Motor Force"
+
+
+
+Later: start on the training task

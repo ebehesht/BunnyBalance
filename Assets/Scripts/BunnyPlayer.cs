@@ -9,7 +9,6 @@ public class BunnyPlayer : MonoBehaviour {
     public bool isInAir = true;
     public int weight;
     public string seesawSide = "None";
-    //public bool bunnyHasToMove = false; //not using this variable!
 
 	// Use this for initialization
 	void Start () {
@@ -44,20 +43,73 @@ public class BunnyPlayer : MonoBehaviour {
 
     }
 
+    public void touchUp()
+    {
+        GameObject seesaw = GameObject.FindWithTag("Seesaw");
+
+        if (mySeat != null)
+        { //if the bunny is on a seat, put the bunny on the seesaw
+            Collider2D seatCollider = mySeat.GetComponent<Collider2D>();
+            Debug.Log("bunny is touching the seat: " + seatCollider.transform.name);
+
+            // calculate the weight and determine the seesaw new status
+            if (seatCollider.transform.tag == "LeftSeat")
+            {
+                GlobalVariables.leftWeight += this.weight;
+            }
+            else
+            {
+                GlobalVariables.rightWeight += this.weight;
+            }
+
+            seesaw.GetComponent<Seesaw>().Move();
+
+            //seesawJoint.useMotor = true;
+            this.enabled = true;
+            this.isInAir = false;
+        }
+        else //seatcollider is null
+        {
+            if (!this.isInAir)
+            {
+                Debug.Log("recalculate the weight on seesaw");
+
+                if (this.seesawSide == "Left")
+                {
+                    GlobalVariables.leftWeight -= this.weight;
+                }
+                else
+                {
+                    GlobalVariables.rightWeight -= this.weight;
+                }
+
+                this.GetComponent<HingeJoint2D>().enabled = false;
+                this.isInAir = true;
+                this.seesawSide = "None";
+
+                seesaw.GetComponent<Seesaw>().Move();
+
+            }
+            else
+            {
+                Debug.Log("just a touch up event");
+            }
+        }
+        //if (touchedBunny.GetComponent<Collider2D>().IsTouching(seatCollider))
+
+    }
+
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        /*
+        
          * //instead of this, I used layer-based collision detection
         if (collision.gameObject.tag == "Bunny")
         {
             var colliderToIgnore = collision.gameObject.GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(colliderToIgnore, this.GetComponent<Collider2D>());
         }
-        */
+        
     }
-
-    public void printFunction()
-    {
-        //print("Touch down" + bunnyBody.tag);
-    }
+    */
 }
