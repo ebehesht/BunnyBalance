@@ -4,7 +4,8 @@ using UnityEngine;
 using TanvasTouch.Model;
 using System.IO;
 
-public class HapticSetting : MonoBehaviour {
+public class HapticSetting : MonoBehaviour
+{
 
     [SerializeField]
     private Camera _camera;
@@ -17,18 +18,70 @@ public class HapticSetting : MonoBehaviour {
     //private int _previousWidth = 0;
     //private int _previousHeight = 0;
 
-    // Called at start of application.
-    void Start () {
+    private string imagePath;
 
+    // Called at start of application.
+    void Start()
+    {
+
+        imagePath = "/../Assets/Resources/Textures/customized/";
         // create a texture2d
-        // white.png is a 150 by 150 pixel image
+        // load a 400 by 400 pixel white image
         Texture2D newTexture = Resources.Load("Textures/customized/white400") as Texture2D;
         int imageHeight = newTexture.height;
         int imageWidth = newTexture.width;
 
-        for (int i = 0; i < imageWidth; i++)
+        //CreateNoiseTexture(newTexture, imageWidth, imageHeight);
+        //CreateStripedTexture(newTexture, imageWidth, imageHeight);
+        //CreatePolkaDotTexture(newTexture, imageWidth, imageHeight);
+
+        //Connect to the service and begin intializing the haptic resources.
+        InitHaptics();
+    }
+
+
+    // create a noise texture
+    void CreateNoiseTexture(Texture2D newTexture, int imgW, int imgH)
+    {
+        for (int i = 0; i < imgW; i++)
         {
-            for (int j = 0; j < imageHeight; j++)
+            for (int j = 0; j < imgH; j++)
+            {
+                float value = Random.value;
+                newTexture.SetPixel(i, j, new Color(value, value, value));
+            }
+        }
+
+        byte[] bytes = newTexture.EncodeToPNG();
+        File.WriteAllBytes(Application.dataPath + imagePath + "createdNoiseTexture" + ".png", bytes);
+
+    }
+
+    // create a polka dot pattern
+    void CreatePolkaDotTexture(Texture2D newTexture, int imgW, int imgH)
+    {
+        int x;
+        int y;
+        for (int i = 0; i < 300; i++)
+        {
+            //create 200 black points distributed randomly in the background
+            x = Random.Range(0, imgW);
+            y = Random.Range(0, imgH);
+            Circle(newTexture, x, y, Random.Range(1, 7), Color.black);
+            //newTexture.SetPixel(x, y, Color.black);
+
+        }
+        byte[] bytes = newTexture.EncodeToPNG();
+        File.WriteAllBytes(Application.dataPath + imagePath + "createdPolkaDotTexture" + ".png", bytes);
+
+    }
+
+    //create a striped Texture
+    void CreateStripedTexture(Texture2D newTexture, int imgW, int imgH)
+    {
+        for (int i = 0; i < imgW; i++)
+        {
+            for (int j = 0; j < imgH; j++)
             {
                 if ((i + j) % 7 == 0)
                 {
@@ -42,24 +95,40 @@ public class HapticSetting : MonoBehaviour {
                 {
                     newTexture.SetPixel(i, j, new Vector4(0.3F, 0.3F, 0.3F, 1));
                 }
-                //float value = Random.value;
-                //newTexture.SetPixel(i, j, new Color(value, value, value));
             }
-
         }
-
-        //Debug.Log("this is the texture: " + newTexture.GetPixel(148, 149));
         byte[] bytes = newTexture.EncodeToPNG();
-        File.WriteAllBytes(Application.dataPath + "/../Assets/Resources/Textures/customized/createdTexture2" + ".png", bytes);
-
-        //Connect to the service and begin intializing the haptic resources.
-        InitHaptics();
-        
-
+        File.WriteAllBytes(Application.dataPath + imagePath + "createdXTexture" + ".png", bytes);
     }
 
+    public void Circle(Texture2D tex, int cx, int cy, int r, Color col)
+    {
+        int x, y, px, nx, py, ny, d;
+
+        for (x = 0; x <= r; x++)
+        {
+            d = (int)Mathf.Ceil(Mathf.Sqrt(r * r - x * x));
+            for (y = 0; y <= d; y++)
+            {
+                px = cx + x;
+                nx = cx - x;
+                py = cy + y;
+                ny = cy - y;
+
+                tex.SetPixel(px, py, col);
+                tex.SetPixel(nx, py, col);
+
+                tex.SetPixel(px, ny, col);
+                tex.SetPixel(nx, ny, col);
+
+            }
+        }
+    }
+
+
     // Following Start() this is called in a loop.
-    void Update () {
+    void Update()
+    {
         if (mHapticView != null)
         {
             //Ensure haptic view orientation matches current screen orientation.
@@ -95,8 +164,10 @@ public class HapticSetting : MonoBehaviour {
 
         //Retrieve texture data from bitmap.
         string imagePath = "";
-        switch (this.gameObject.name)
+        //imagePath = "Textures/noise/noise_texture3";
 
+        switch (this.gameObject.name)
+        
         {
             case "HapticMesh1":
                 imagePath = "Textures/noise/noise_texture4";
@@ -119,6 +190,8 @@ public class HapticSetting : MonoBehaviour {
                 break;
 
         }
+
+
 
         /*
         {
@@ -191,6 +264,7 @@ public class HapticSetting : MonoBehaviour {
 
     void OnDestroy()
     {
-        mHapticView.Deactivate();
+        // EB: troubleshoot later!
+        //mHapticView.Deactivate();
     }
 }

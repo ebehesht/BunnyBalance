@@ -67,3 +67,6 @@ first, moving the beam to balance position smoother --> not using the angle limi
 
 
 Later: start on the training task
+
+
+*** 03/02/2018

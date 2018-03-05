@@ -58,10 +58,7 @@ public class TouchEvents : MonoBehaviour {
             //touchedBunny.transform.Translate(touchDeltaPosition.x * speed, touchDeltaPosition.y * speed, 0);
 
         }
-    }
 
-    void LateUpdate()
-    {
         // END MOVE BUNNY & DETECT IF SAT ON A SEAT//
         if (Input.touchCount > 0 && bunnyIsTapped && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
@@ -70,5 +67,10 @@ public class TouchEvents : MonoBehaviour {
             //if (GlobalVariables.collidedSeat != null)
             touchedBunny.GetComponent<BunnyPlayer>().touchUp();
         }
+    }
+
+    void LateUpdate()
+    {
+
     }
 }

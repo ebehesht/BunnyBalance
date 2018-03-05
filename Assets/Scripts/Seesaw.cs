@@ -25,15 +25,15 @@ public class Seesaw : MonoBehaviour {
         JointAngleLimits2D limits = seesawJoint.limits;
 
         float speed = 0.0f;
-        float seesawAngleMin = -10.0f;
-        float seesawAngleMax = 10.0f;
+        float seesawAngleMin = -5.0f;
+        float seesawAngleMax = 5.0f;
         if (GlobalVariables.leftWeight > GlobalVariables.rightWeight)
         {// left side is heavier, but check if this has changed from previous status
             if (this.status != "leftTilted")
             {
                 speed = -50.0f;
-                seesawAngleMin = -10.0f;
-                seesawAngleMax = 10.0f;
+                seesawAngleMin = -5.0f;
+                seesawAngleMax = 5.0f;
                 this.status = "leftTilted";
             }
 
@@ -43,8 +43,8 @@ public class Seesaw : MonoBehaviour {
             if (this.status != "rightTilted")
             {
                 speed = 50.0f;
-                seesawAngleMin = -10.0f;
-                seesawAngleMax = 10.0f;
+                seesawAngleMin = -5.0f;
+                seesawAngleMax = 5.0f;
                 this.status = "rightTilted";
             }
         }
@@ -53,7 +53,7 @@ public class Seesaw : MonoBehaviour {
             if (this.status == "leftTilted")
             {
                 speed = 50.0f;
-                seesawAngleMin = -10.0f;
+                seesawAngleMin = -5.0f;
                 seesawAngleMax = 0.0f;
                 this.status = "balanced";
 
@@ -62,7 +62,7 @@ public class Seesaw : MonoBehaviour {
             { // it is tilted ot the right
                 speed = -50.0f;
                 seesawAngleMin = 0.0f;
-                seesawAngleMax = 10.0f;
+                seesawAngleMax = 5.0f;
                 this.status = "balanced";
             }
 
@@ -75,7 +75,6 @@ public class Seesaw : MonoBehaviour {
         seesawJoint.motor = thisMotor;
 
         Debug.Log("speed: " + speed);
-        Debug.Log("left weight: " + GlobalVariables.leftWeight);
-        Debug.Log("right weight: " + GlobalVariables.rightWeight);
+
     }
 }

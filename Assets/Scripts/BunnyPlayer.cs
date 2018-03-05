@@ -5,8 +5,8 @@ using UnityEngine;
 public class BunnyPlayer : MonoBehaviour {
 
     private Rigidbody2D bunnyBody;
-    public GameObject mySeat;
-    public bool isInAir = true;
+    public GameObject mySeat = null;
+    public GameObject oldSeat = null;
     public int weight;
     public string seesawSide = "None";
 
@@ -45,32 +45,65 @@ public class BunnyPlayer : MonoBehaviour {
 
     public void touchUp()
     {
+        
         GameObject seesaw = GameObject.FindWithTag("Seesaw");
 
-        if (mySeat != null)
-        { //if the bunny is on a seat, put the bunny on the seesaw
-            Collider2D seatCollider = mySeat.GetComponent<Collider2D>();
-            Debug.Log("bunny is touching the seat: " + seatCollider.transform.name);
-
-            // calculate the weight and determine the seesaw new status
-            if (seatCollider.transform.tag == "LeftSeat")
-            {
-                GlobalVariables.leftWeight += this.weight;
-            }
-            else
-            {
-                GlobalVariables.rightWeight += this.weight;
-            }
-
-            seesaw.GetComponent<Seesaw>().Move();
-
-            //seesawJoint.useMotor = true;
-            this.enabled = true;
-            this.isInAir = false;
-        }
-        else //seatcollider is null
+        if (mySeat != null)  //the bunny is on one seat
         {
-            if (!this.isInAir)
+            
+            if (oldSeat == null) //if the bunny is on a seat, put the bunny on the seesaw
+            {
+                Collider2D seatCollider = mySeat.GetComponent<Collider2D>();
+                Debug.Log("bunny is touching the seat: " + seatCollider.transform.name);
+
+                // calculate the weight and determine the seesaw new status
+                if (seatCollider.transform.tag == "LeftSeat")
+                {
+                    GlobalVariables.leftWeight += this.weight;
+                }
+                else
+                {
+                    GlobalVariables.rightWeight += this.weight;
+                }
+
+                this.GetComponent<HingeJoint2D>().enabled = true;
+
+                this.oldSeat = mySeat;
+
+                seesaw.GetComponent<Seesaw>().Move();
+
+                //seesawJoint.useMotor = true;
+ 
+                //Debug.Log("my seat tag: " + mySeat.transform.tag);
+
+            }
+            else if (oldSeat.transform.tag != mySeat.transform.tag)
+            { // if the bunny is moved from one side to the other
+                Collider2D seatCollider = mySeat.GetComponent<Collider2D>();
+                if (seatCollider.transform.tag == "LeftSeat")
+                {
+                    GlobalVariables.leftWeight += this.weight;
+                    GlobalVariables.rightWeight -= this.weight;
+                }
+                else
+                {
+                    GlobalVariables.rightWeight += this.weight;
+                    GlobalVariables.leftWeight -= this.weight;
+                }
+
+
+                //seesawJoint.useMotor = true;
+                //this.GetComponent<HingeJoint2D>().enabled = true;
+                this.oldSeat = mySeat;
+
+                seesaw.GetComponent<Seesaw>().Move();
+
+            }
+
+        }
+        else if (mySeat == null) //seatcollider is null
+        {
+            if (this.oldSeat != null)
             {
                 Debug.Log("recalculate the weight on seesaw");
 
@@ -84,7 +117,7 @@ public class BunnyPlayer : MonoBehaviour {
                 }
 
                 this.GetComponent<HingeJoint2D>().enabled = false;
-                this.isInAir = true;
+                this.oldSeat = null;
                 this.seesawSide = "None";
 
                 seesaw.GetComponent<Seesaw>().Move();
@@ -93,9 +126,13 @@ public class BunnyPlayer : MonoBehaviour {
             else
             {
                 Debug.Log("just a touch up event");
+                //this.GetComponent<HingeJoint2D>().enabled = false;
             }
         }
         //if (touchedBunny.GetComponent<Collider2D>().IsTouching(seatCollider))
+
+        Debug.Log("left weight: " + GlobalVariables.leftWeight);
+        Debug.Log("right weight: " + GlobalVariables.rightWeight);
 
     }
 
