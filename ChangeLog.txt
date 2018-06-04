@@ -69,4 +69,6 @@ first, moving the beam to balance position smoother --> not using the angle limi
 Later: start on the training task
 
 
-*** 03/02/2018
+*** 04/29/2018
+
+1. Add sound effect: when bunnies are put on the seats.

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SeesawSeat : MonoBehaviour {
+    public bool occupied;
     
     
 	// Use this for initialization
 	void Start () {
-		
-	}
+        this.occupied = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,7 +19,7 @@ public class SeesawSeat : MonoBehaviour {
     // collision
     void OnCollisionEnter2D(Collision2D coll)
     {
-        Debug.Log("collision enter");
+        //Debug.Log("collision enter");
         //GlobalVariables.collidedSeat = this.gameObject;
         GameObject bunnySeat = coll.gameObject.GetComponent<BunnyPlayer>().mySeat;
         if (bunnySeat == null)

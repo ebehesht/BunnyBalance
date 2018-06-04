@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BunnyBalance", "BunnyBalance.csproj", "{F7D40FA8-76B3-6F3D-3203-2A514C5EC50B}"
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BunnyBalance", "Assembly-CSharp.csproj", "{25879945-4FFE-E53B-EB01-B381EC1AF40D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F7D40FA8-76B3-6F3D-3203-2A514C5EC50B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7D40FA8-76B3-6F3D-3203-2A514C5EC50B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7D40FA8-76B3-6F3D-3203-2A514C5EC50B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7D40FA8-76B3-6F3D-3203-2A514C5EC50B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25879945-4FFE-E53B-EB01-B381EC1AF40D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25879945-4FFE-E53B-EB01-B381EC1AF40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25879945-4FFE-E53B-EB01-B381EC1AF40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25879945-4FFE-E53B-EB01-B381EC1AF40D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

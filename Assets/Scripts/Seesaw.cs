@@ -5,11 +5,14 @@ using UnityEngine;
 public class Seesaw : MonoBehaviour {
 
     public string status = "balanced";
+    public AudioClip seesawSound;
+    public AudioSource seesawSource;
 
     // Use this for initialization
     void Start () {
-		
-	}
+        seesawSource.clip = seesawSound;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,6 +21,7 @@ public class Seesaw : MonoBehaviour {
 
     public void Move()
     {
+        
         //HingeJoint2D seesawJoint = mySeat.transform.parent.GetComponent<HingeJoint2D>();
         //HingeJoint2D seesawJoint = GameObject.FindWithTag("Seesaw").GetComponent<HingeJoint2D>();
         HingeJoint2D seesawJoint = this.GetComponent<HingeJoint2D>();
@@ -71,6 +75,9 @@ public class Seesaw : MonoBehaviour {
         limits.min = seesawAngleMin;
         limits.max = seesawAngleMax;
         thisMotor.motorSpeed = speed;
+
+        // play a sound if the seesaw is moving
+        if (speed != 0.0) seesawSource.Play();
         seesawJoint.limits = limits;
         seesawJoint.motor = thisMotor;
 

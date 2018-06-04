@@ -39,6 +39,11 @@ public class TouchEvents : MonoBehaviour {
                     offset = touchPosWorld - touchedBunny.transform.position;
                     //Debug.Log("Touched " + touchedBunny.name);
 
+                    // Activate the haptics mesh
+                    //Change this code later, not a good idea to call the child by index
+                    GameObject haptic = touchedBunny.transform.GetChild(0).gameObject;
+                    haptic.SetActive(true);
+
                 }
             }
         }
@@ -62,15 +67,17 @@ public class TouchEvents : MonoBehaviour {
         // END MOVE BUNNY & DETECT IF SAT ON A SEAT//
         if (Input.touchCount > 0 && bunnyIsTapped && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
+
+            // De-activate the haptics mesh
+            //Change this code later, not a good idea to call the child by index
+            GameObject haptic = touchedBunny.transform.GetChild(0).gameObject;
+            haptic.SetActive(false);
+
+
             bunnyIsTapped = false; //end the touch
 
             //if (GlobalVariables.collidedSeat != null)
             touchedBunny.GetComponent<BunnyPlayer>().touchUp();
         }
-    }
-
-    void LateUpdate()
-    {
-
     }
 }
