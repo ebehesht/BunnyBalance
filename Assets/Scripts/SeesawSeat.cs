@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SeesawSeat : MonoBehaviour {
     public bool occupied;
-    
-    
-	// Use this for initialization
-	void Start () {
+
+
+
+    // Use this for initialization
+    void Start () {
         this.occupied = false;
     }
 	
@@ -19,51 +20,43 @@ public class SeesawSeat : MonoBehaviour {
     // collision
     void OnCollisionEnter2D(Collision2D coll)
     {
-        //Debug.Log("collision enter");
-        //GlobalVariables.collidedSeat = this.gameObject;
-        GameObject bunnySeat = coll.gameObject.GetComponent<BunnyPlayer>().mySeat;
-        if (bunnySeat == null)
+        if (coll.collider is BoxCollider2D) //bunny has two colliders, the box collider for seating on the seesaw
         {
-            coll.gameObject.GetComponent<BunnyPlayer>().mySeat = this.gameObject;
-            if (this.tag == "LeftSeat")
+            Debug.Log("Test: enter collision");
+            GameObject bunnySeat = coll.gameObject.GetComponent<BunnyPlayer>().mySeat;
+            if (bunnySeat == null)
             {
-                coll.gameObject.GetComponent<BunnyPlayer>().seesawSide = "Left";
+                coll.gameObject.GetComponent<BunnyPlayer>().mySeat = this.gameObject;
+                if (this.tag == "LeftSeat")
+                {
+                    coll.gameObject.GetComponent<BunnyPlayer>().seesawSide = "Left";
+                }
+                else
+                {
+                    coll.gameObject.GetComponent<BunnyPlayer>().seesawSide = "Right";
+                }
+
             }
-            else
-            {
-                coll.gameObject.GetComponent<BunnyPlayer>().seesawSide = "Right";
-            }
-            
-            Debug.Log("collision enter: " + coll.gameObject.GetComponent<BunnyPlayer>().mySeat.transform.name);
 
         }
-        // I don't think this code is necessary!
-        else if (bunnySeat.transform.name != this.gameObject.transform.name)
-        {
-            Debug.Log("this seat is: " + bunnySeat.transform.name);
-        }
 
-        
-        //GameObject collidedBunny = coll.gameObject;
-        //collidedBunny.GetComponent<BunnyPlayer>().isBunnyOnSeat = true;
-
-        //coll.gameObject.transform.parent = this.transform.parent;
-        //Rigidbody2D seesawBody = this.transform.parent.GetComponent<Rigidbody2D>();
-        //Rigidbody2D collidedBunnyRB = coll.gameObject.GetComponent<Rigidbody2D>();        
-        //HingeJoint2D seesawJoint = this.transform.parent.GetComponent<HingeJoint2D>();
-        //seesawJoint.useMotor = true;
- 
     }
 
     void OnCollisionExit2D(Collision2D coll)
     {
-        //GlobalVariables.collidedSeat = null;
-        coll.gameObject.GetComponent<BunnyPlayer>().mySeat = null;
-        Debug.Log("collision exit");
-        //GameObject collidedBunny = coll.gameObject;
-        //collidedBunny.GetComponent<BunnyPlayer>().isBunnyOnSeat = false;
-        //HingeJoint2D seesawJoint = this.transform.parent.GetComponent<HingeJoint2D>();
-        //seesawJoint.useMotor = false;
+        if (coll.collider is BoxCollider2D)
+        {
+            Debug.Log("Test: exit collision");
+            coll.gameObject.GetComponent<BunnyPlayer>().mySeat = null;
+
+        }
+
+
+    }
+
+    public void ResetSeat()
+    {
+        this.occupied = false;
     }
 
 

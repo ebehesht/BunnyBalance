@@ -5,12 +5,16 @@ using UnityEngine;
 public class Seesaw : MonoBehaviour {
 
     public string status = "balanced";
-    public AudioClip seesawSound;
+    public AudioClip seesawMoveSound;
+    //public AudioClip madebuleheavy;
+    //public AudioClip maderedheavy;
+    //public AudioClip youbalanced;
     public AudioSource seesawSource;
 
     // Use this for initialization
     void Start () {
-        seesawSource.clip = seesawSound;
+        seesawSource = GetComponent<AudioSource>();
+        //seesawSource.clip = seesawMoveSound; //the audio clip for moving seesaw
 
     }
 	
@@ -77,11 +81,42 @@ public class Seesaw : MonoBehaviour {
         thisMotor.motorSpeed = speed;
 
         // play a sound if the seesaw is moving
-        if (speed != 0.0) seesawSource.Play();
+        if (speed != 0.0)
+        {
+            seesawSource.PlayOneShot(seesawMoveSound, 1F);
+            //seesawSource.Play();
+            /*
+            // play prompt sounds that says the seesaw is balances, left tilted, or right tilted
+            AudioClip thisPrompt = null;
+            switch (this.status)
+            {
+                case "balanced":
+                    thisPrompt = youbalanced;
+                    break;
+                case "leftTilted":
+                    thisPrompt = maderedheavy;
+                    break;
+                case "rightTilted":
+                    thisPrompt = madebuleheavy;
+                    break;
+            }
+            //seesawSource.Play();
+            seesawSource.PlayOneShot(thisPrompt, 1F);
+            */
+
+        }
+
         seesawJoint.limits = limits;
         seesawJoint.motor = thisMotor;
 
         Debug.Log("speed: " + speed);
 
+    }
+
+    public void ResetSeesaw()
+    {
+        GlobalVariables.leftWeight = 0;
+        GlobalVariables.rightWeight = 0;
+        if (this.status != "balanced") this.Move();
     }
 }

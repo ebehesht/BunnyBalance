@@ -72,3 +72,43 @@ Later: start on the training task
 *** 04/29/2018
 
 1. Add sound effect: when bunnies are put on the seats.
+
+*** June 2018
+List of changes to make:
+1. work on the collision code
+ --> detecting collision
+ --> putting the bunnie on balance
+2. don't let more than one bunny on a seat
+3. work on the clonning: right now there are multiple bunnies, I can change it to remove clone bunnies when removed from the balance
+4. work on the textures: create better textures with better differentiating between the five bunnies
+5. 
+ 
+
+*** 06/13/2018
+1. work on the collision:
+the issue with changing the box collider to cover the below half is that it also affects the touch events.
+Is there any way to create two collider boxes? one for touch events and one for sitting on the seesaw.
+
+*** 06/23/2018 && 06/25/2018
+1. work on collision:
+I created 2 collision box: one capsule collider for touch events, and one bottom box collider for seating on the seesaw.
+The collision between bunny and seat is much improved by making the box very narrow, since there was conflict between the two adjacent seats
+2. don't let multiple bunnies on one seat: 
+fixed, there was a bug in setting the occupied flag of the seat
+3. added prompting sounds: balanced, made left heavier, made right heavier
+
+issue: not playing two audio clips for seesaw: I had to add this code:
+seesawSource.PlayOneShot(seesawMoveSound, 0.7F);
+instead of: seesawSource.play();
+4. updated the background image, position of seesaw, and position of bunnies
+5. sit on a fixed position
+
+Later: right now, the bunny cannot be moved from one seat to another; instead, it is removed. Fix this:
+the issue is: the seat collision events are not fired after the bunny is put on the first seat.
+
+Later: fix the issue with bunny on seesaw and when touch down or touch move, it removes the bunny even if it is just a tap or moving to another seat!
+
+
+1. bunnies sitting on the seesaw
+2. non-haptics version: bug with touch inputs, troubleshoot it
+3. the replacing bunnies are strange!
